@@ -7,14 +7,11 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
-env:
-  DEVKITPRO: /opt/devkitpro
-
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      PATH: ${{ env.DEVKITPRO }}/devkitA64/bin:${{ env.DEVKITPRO }}/tools/bin:${PATH}
+      DEVKITPRO: /opt/devkitpro
     steps:
       - uses: actions/checkout@v4
 
