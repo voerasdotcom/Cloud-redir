@@ -7,28 +7,24 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  DEVKITPRO: /opt/devkitpro
+
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DEVKITPRO: /opt/devkitpro
-      # Add devkitPro to PATH so that tools like aarch64-none-elf-gcc are found
       PATH: ${{ env.DEVKITPRO }}/devkitA64/bin:${{ env.DEVKITPRO }}/tools/bin:${PATH}
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install devkitPro
         run: |
-          # Add the devkitPro APT repository
           sudo apt-get update
           sudo apt-get install -y curl gpg
           curl -fsSL https://apt.devkitpro.org/install.sh | sudo bash
-          # Install required packages
           sudo apt-get install -y switch-dev switch-tools switch-curl switch-mbedtls
 
-      - name: Verify devkitPro installation
       - name: Verify installation
         run: |
           echo "DEVKITPRO=$DEVKITPRO"
