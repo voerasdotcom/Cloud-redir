@@ -28,7 +28,6 @@ jobs:
           # Install required packages
           sudo apt-get install -y switch-dev switch-tools switch-curl switch-mbedtls
 
-      - name: Verify devkitPro installation
       - name: Verify installation
         run: |
           echo "DEVKITPRO=$DEVKITPRO"
