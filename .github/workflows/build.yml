@@ -9,16 +9,15 @@ on:
 
 jobs:
   build:
-    # Use the devkitpro/switch image – it provides the Switch toolchain pre‑installed
+    runs-on: ubuntu-latest
     container:
-      image: devkitpro/switch:latest
-      # Optional: run as a non‑root user to avoid permission‑related issues with mounted volumes
-      options: >-
-        --user $(id -u):$(id -g)
-        --volume "${{ github.workspace }}:${{ github.workspace }}"
-        --workdir "${{ github.workspace }}"
+      image: devkitpro/switch:latest   # provides the Switch toolchain pre‑installed
     steps:
       - uses: actions/checkout@v4
+
+      - name: Install build essentials (if missing)
+        run: |
+          apt-get update && apt-get install -y make cmake git
 
       - name: Verify toolchain
         run: |
